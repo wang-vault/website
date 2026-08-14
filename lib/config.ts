@@ -33,13 +33,13 @@ export const site = {
 export const contact = {
   // GANTI DI SINI — nomor WhatsApp format internasional TANPA "+", tanpa "0" di depan.
   // Contoh benar: 6281234567890
-  whatsappNumber: "6281234567890",
+  whatsappNumber: "6282189822272",
   // GANTI DI SINI — invite link Discord asli kamu
-  discordUrl: "https://discord.gg/xxxxxxx",
+  discordUrl: "https://chat.whatsapp.com/CuoLFC6NSKgJgH7A8ZjJeE?mode=gi_t",
   // GANTI DI SINI — email support
   email: "support@wangstore.id",
   // GANTI DI SINI — teks yang tampil sebagai label WhatsApp (opsional)
-  whatsappLabel: "+62 812-3456-7890",
+  whatsappLabel: "+6282189822272",
 };
 
 // GANTI DI SINI — jam operasional
