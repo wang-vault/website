@@ -46,11 +46,10 @@ npm run build    # cek build production sebelum deploy
 Semuanya ada di **`lib/config.ts`** — cari komentar `GANTI DI SINI`:
 
 1. `contact.whatsappNumber` — format `62xxxxxxxxxxx`, tanpa `+`, tanpa `0` depan, tanpa spasi.
-2. `contact.discordUrl` — invite link Discord asli.
+2. `contact.whatsappGroupUrl` — link grup WhatsApp / komunitas resmi kamu.
 3. `contact.email` dan `contact.whatsappLabel`.
-4. `operatingHours` — jam operasional (saat ini masih dummy).
-5. `products` — 6 produk dummy: nama, deskripsi, harga, `specs`, dan `featured`
-   (`featured: true` = tampil di Home, ambil 3 pertama).
+4. `operatingHours` — jam operasional toko.
+5. `products` — daftar katalog produk: nama, deskripsi, harga, `specs`, dan `featured` (`featured: true` = tampil di section Produk Unggulan di Home).
 6. `site` — nama toko, tagline, deskripsi, dan `site.url` (isi domain final setelah deploy).
 7. Opsional: `reasons`, `orderSteps`, `faqs`, dan template pesan di fungsi `waLink()`.
 
@@ -102,8 +101,7 @@ praktis karena setiap `git push` otomatis re-deploy.)
 
 ## Catatan Teknis
 
-- Font Inter dimuat lewat `next/font/google` (self-hosted otomatis saat build,
-  jadi tidak ada request runtime ke Google).
+- Menggunakan modern system font stack (bebas dependensi eksternal, performa instan dan stabil saat build).
 - Tailwind v4 dikonfigurasi lewat `@theme` di `app/globals.css`, tidak butuh
   `tailwind.config.js`.
 - Tidak ada gambar eksternal. Semua placeholder visual pakai gradient div dan

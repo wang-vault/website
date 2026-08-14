@@ -25,7 +25,7 @@ export default function ProductCard({ product }: { product: Product }) {
         ))}
       </ul>
 
-      <div className="mt-7 flex items-baseline gap-1.5 border-t border-white/10 pt-6">
+      <div className="mt-auto flex items-baseline gap-1.5 border-t border-white/10 pt-6">
         <span className="text-2xl font-semibold tracking-tight text-white">
           {product.price}
         </span>

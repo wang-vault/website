@@ -63,12 +63,12 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={contact.discordUrl}
+                  href={contact.whatsappGroupUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-neutral-400 transition-colors duration-200 hover:text-white"
                 >
-                  Discord
+                  Grup WhatsApp
                 </a>
               </li>
               <li>
