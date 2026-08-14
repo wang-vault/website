@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* Tailwind v4: konfigurasi tema langsung di CSS (tidak butuh tailwind.config.js).
+   Palet sengaja HANYA hitam / putih / abu-abu. */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink-950: #08080a;
+  --color-ink-900: #0d0d10;
+  --color-ink-800: #141418;
+  --color-ink-700: #1c1c21;
+  --color-ink-600: #26262c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: #e7e7ea;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Satu-satunya hal yang tidak praktis dilakukan dengan utility Tailwind:
+   styling scrollbar native browser. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2c2c33;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3d45;
+}
+
+::selection {
+  background: #e7e7ea;
+  color: #08080a;
+}

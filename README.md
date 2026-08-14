@@ -1,106 +1,111 @@
-# WangStore - Landing Page AULA WANG
+# WangStore — Website Multi-Halaman (AULA WANG)
 
-Landing page toko online produk digital / hosting / VPS bertema wuxia modern "AULA WANG".
-- Stack: HTML + CSS + JS vanilla, 100% static, no build step
-- Siap deploy ke Vercel langsung
-- Mobile-first, Dark mode Red/Gold
+Website toko produk digital / hosting / VPS. Multi-halaman, tema monokrom
+(hitam–putih–abu), tanpa backend dan tanpa database.
 
-## Struktur File
+- **Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS v4
+- **Rendering:** semua halaman di-prerender jadi HTML statis saat build
+- **Target deploy:** Vercel (free tier cukup)
+
+## Struktur Folder
+
 ```
 /
-├── index.html   # Struktur halaman (Hero, Produk, Cara Order, Footer)
-├── style.css    # Styling dark wuxia + responsive
-├── script.js    # CONFIG pusat + render produk + WA link logic
-└── vercel.json  # Config optional Vercel (cleanUrls + security headers)
+├── app/
+│   ├── layout.tsx          # Root layout: font Inter, Navbar, Footer, metadata
+│   ├── globals.css         # Import Tailwind + tema warna + styling scrollbar
+│   ├── page.tsx            # "/"            Home
+│   ├── produk/page.tsx     # "/produk"      Grid semua produk
+│   ├── cara-order/page.tsx # "/cara-order"  Step-by-step + FAQ
+│   └── kontak/page.tsx     # "/kontak"      WA / Discord / Email + jam operasional
+├── components/
+│   ├── Navbar.tsx          # Sticky navbar, highlight halaman aktif (client)
+│   ├── Footer.tsx          # Footer bersama
+│   ├── ProductCard.tsx     # Kartu produk + tombol Order via WhatsApp
+│   ├── PageHeader.tsx      # Header judul halaman (dipakai 3 halaman)
+│   └── FaqAccordion.tsx    # Accordion FAQ (client)
+├── lib/
+│   └── config.ts           # ★ SEMUA DATA YANG PERLU DIGANTI ADA DI SINI
+├── next.config.ts
+├── postcss.config.mjs      # Setup resmi Tailwind v4
+├── tsconfig.json
+├── vercel.json
+└── package.json
 ```
 
-### Semua yang WAJIB diganti ada di `script.js` paling atas:
+## Menjalankan di Lokal
 
-```js
-const CONFIG = {
-  whatsappNumber: "6281234567890", // GANTI DI SINI
-  discordLink: "https://discord.gg/xxx",
-  email: "support@wangstore.id",
-  products: [ ... 6 produk ... ]
-}
+```bash
+npm install
+npm run dev      # buka http://localhost:3000
+npm run build    # cek build production sebelum deploy
 ```
 
 ## Yang WAJIB Diedit Sebelum Deploy
 
-1. **Nomor WhatsApp** - `CONFIG.whatsappNumber` di `script.js` baris 11
-   - Format: `62` diikuti nomor tanpa `+`, tanpa `0`, tanpa spasi.
-   - Contoh valid: `6281234567890`
-   - Link WA akan otomatis jadi `https://wa.me/NOMOR?text=Halo%20...`
+Semuanya ada di **`lib/config.ts`** — cari komentar `GANTI DI SINI`:
 
-2. **Link Discord** - `CONFIG.discordLink`
-   - Ganti dengan invite link asli server kamu.
+1. `contact.whatsappNumber` — format `62xxxxxxxxxxx`, tanpa `+`, tanpa `0` depan, tanpa spasi.
+2. `contact.discordUrl` — invite link Discord asli.
+3. `contact.email` dan `contact.whatsappLabel`.
+4. `operatingHours` — jam operasional (saat ini masih dummy).
+5. `products` — 6 produk dummy: nama, deskripsi, harga, `specs`, dan `featured`
+   (`featured: true` = tampil di Home, ambil 3 pertama).
+6. `site` — nama toko, tagline, deskripsi, dan `site.url` (isi domain final setelah deploy).
+7. Opsional: `reasons`, `orderSteps`, `faqs`, dan template pesan di fungsi `waLink()`.
 
-3. **Email** - `CONFIG.email`
+File lain tidak perlu disentuh kecuali mau ubah desain.
 
-4. **6 Produk Dummy** - `CONFIG.products`
-   - Ganti `name`, `description`, `price`, `priceNote`, `badge`, `icon`
-   - Icon pakai emoji biar ringan, atau ganti jadi teks.
-   - Harga bebas format: `Rp 35.000 / bulan`
+## Deploy ke Vercel (via GitHub)
 
-5. **Opsional:** `storeName`, `waMessageTemplate` jika mau ubah sapaan WA.
+### Kenapa tidak bisa asal upload folder?
 
-Tidak ada backend/database. Semua edit cukup di `script.js`.
+Website lama berupa HTML statis, jadi bisa di-drag & drop. Yang ini **Next.js**:
+file `.tsx` dan Tailwind harus dikompilasi dulu (`next build`) menjadi HTML, CSS,
+dan JS. Browser tidak bisa membaca `.tsx` langsung. Jadi harus ada **build step**
+yang dijalankan Vercel di servernya — caranya dengan menghubungkan repo Git,
+supaya Vercel yang menjalankan `npm install && npm run build`.
 
-## Cara Deploy ke Vercel (2 Opsi)
+(Alternatifnya: build di laptop lalu upload hasilnya, tapi via GitHub jauh lebih
+praktis karena setiap `git push` otomatis re-deploy.)
 
-### Opsi A: Via GitHub (Paling Mudah - Recommended)
-1. Push repo ini ke GitHub:
-   - Buat repo baru di github.com/new (nama misal `wangstore`)
-   - Di lokal:
-     ```bash
-     git remote add origin https://github.com/USERNAME/wangstore.git
-     git branch -M main
-     git push -u origin arena/019fff62-website:main
-     # atau push ke branch ini saja jika lewat Arena
-     ```
-2. Buka vercel.com → Login dengan GitHub → **Add New Project**
-3. Import repo `wangstore` → Framework Preset pilih **Other**
-4. Build & Output Settings: kosongkan semua (karena static, no build)
-5. Klik **Deploy** → selesai, dapat URL `*.vercel.app`
-6. Jika update produk/nomor WA, tinggal `git push` → Vercel auto-deploy.
+### Langkah-langkah
 
-### Opsi B: Via Vercel CLI (Tanpa GitHub)
-1. Install Vercel CLI:
+1. **Push project ini ke GitHub.**
    ```bash
-   npm i -g vercel
+   git add .
+   git commit -m "WangStore: Next.js multi-page"
+   git push origin <nama-branch-kamu>
    ```
-2. Di folder project (`/website`):
+   Kalau belum ada remote:
    ```bash
-   vercel
+   git remote add origin https://github.com/USERNAME/wangstore.git
+   git push -u origin main
    ```
-   - Ikuti prompt: login → pilih scope → project name `wangstore` → directory `./` → No build.
-3. Untuk deploy production:
-   ```bash
-   vercel --prod
-   ```
+2. Buka [vercel.com](https://vercel.com) → **Login with GitHub**.
+3. Klik **Add New…** → **Project**.
+4. Pilih repo `wangstore` → **Import**. (Kalau repo tidak muncul, klik
+   *Adjust GitHub App Permissions* dan beri akses ke repo tersebut.)
+5. Di halaman konfigurasi:
+   - **Framework Preset:** `Next.js` (terdeteksi otomatis — biarkan).
+   - **Build Command:** `npm run build` (default, biarkan).
+   - **Output Directory:** biarkan kosong/default.
+   - **Environment Variables:** tidak ada, kosongkan.
+6. Klik **Deploy**, tunggu ±1–2 menit sampai muncul URL `namaproject.vercel.app`.
+7. **Update selanjutnya:** cukup edit `lib/config.ts` → `git commit` → `git push`.
+   Vercel otomatis build & deploy ulang.
+8. **Custom domain (opsional):** Project → **Settings** → **Domains** → Add,
+   lalu arahkan DNS sesuai instruksi Vercel.
 
-### Opsi C: Drag & Drop (Vercel Dashboard)
-- Buka vercel.com/new → pilih **Browse** → drag folder ini → Deploy.
-
-## Cek Lokal Sebelum Deploy
-Cukup buka `index.html` via Live Server atau:
-```bash
-npx serve .
-# atau
-python -m http.server 3000
-```
-Buka http://localhost:3000
-
-Tidak butuh `npm install` / build step.
+> Catatan: kalau build di Vercel gagal, buka tab **Deployments** → klik deployment
+> yang merah → **Build Logs** untuk melihat pesan errornya.
 
 ## Catatan Teknis
-- Google Fonts dipakai via CDN valid: `https://fonts.googleapis.com/...` (Inter + Poppins)
-- Hover animation pakai `transform + transition 0.25s`, tidak berlebihan
-- WA link pakai `wa.me` official API, encodeURIComponent untuk pre-filled message
-- Semua link eksternal pakai `target="_blank" rel="noopener"`
 
-## Lisensi
-Bebas pakai untuk UMKM / toko online kamu.
-
----
-Made for WangStore - Aula Wang
+- Font Inter dimuat lewat `next/font/google` (self-hosted otomatis saat build,
+  jadi tidak ada request runtime ke Google).
+- Tailwind v4 dikonfigurasi lewat `@theme` di `app/globals.css`, tidak butuh
+  `tailwind.config.js`.
+- Tidak ada gambar eksternal. Semua placeholder visual pakai gradient div dan
+  diberi komentar `GANTI DENGAN GAMBAR ASLI DI SINI`.
+- Semua link eksternal pakai `target="_blank" rel="noopener noreferrer"`.
