@@ -10,19 +10,19 @@ export const metadata: Metadata = {
 
 const channels = [
   {
-    label: "WhatsApp",
+    label: "WhatsApp Admin",
     value: contact.whatsappLabel,
-    note: "Jalur tercepat untuk order dan pertanyaan produk.",
+    note: "Jalur tercepat untuk order dan pertanyaan produk secara langsung.",
     href: waLink(),
     cta: "Chat Sekarang",
     external: true,
   },
   {
-    label: "Discord",
+    label: "Grup WhatsApp",
     value: "Komunitas WangStore",
-    note: "Gabung untuk info promo, update layanan, dan diskusi teknis.",
-    href: contact.discordUrl,
-    cta: "Gabung Server",
+    note: "Gabung untuk info promo, update layanan, diskon, dan diskusi teknis.",
+    href: contact.whatsappGroupUrl,
+    cta: "Gabung Grup WA",
     external: true,
   },
   {

@@ -3,7 +3,7 @@ import ProductCard from "@/components/ProductCard";
 import { products, reasons, site, waLink } from "@/lib/config";
 
 export default function HomePage() {
-  const featured = products.filter((p) => p.featured).slice(0, 3);
+  const featured = products.filter((p) => p.featured);
 
   return (
     <>

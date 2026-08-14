@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /* Tailwind v4: konfigurasi tema langsung di CSS (tidak butuh tailwind.config.js).
-   Palet sengaja HANYA hitam / putih / abu-abu. */
+   Palet monokrom hitam / putih / abu-abu. */
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   --color-ink-950: #08080a;
   --color-ink-900: #0d0d10;
