@@ -7,7 +7,7 @@
 
 const CONFIG = {
   // ============ KONTAK - GANTI DI SINI ============
-  whatsappNumber: "6281234567890", // GANTI DI SINI - Format 62xxxx tanpa +, tanpa 0, tanpa spasi. Contoh: 6281234567890
+  whatsappNumber: "6282189822272", // GANTI DI SINI - Format 62xxxx tanpa +, tanpa 0, tanpa spasi. Contoh: 6281234567890
   discordLink: "https://discord.gg/INVITE_KAMU", // GANTI DI SINI
   email: "support@wangstore.id", // GANTI DI SINI
 
